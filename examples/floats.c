@@ -1,8 +1,10 @@
 #include "optional_c.h"
 #include "stdio.h"
 
+// You must first define the Optional Type
 DefineOptional(float);
 
+// Here are some functions to simulate real behavior
 Optional(float) getFailure(void)
 {
     return None(float);
@@ -13,7 +15,7 @@ Optional(float) getSuccessful1(void)
 }
 Optional(float) getSuccessful2(void)
 {
-    Optional(float) myOptionalFloat;
+    Optional(float) myOptionalFloat = {{0}};
 
     if(true)
     {
@@ -23,6 +25,7 @@ Optional(float) getSuccessful2(void)
     return myOptionalFloat;
 }
 
+// Test Driver
 int main(void)
 {
     Optional(float) myOpt = {{0}};
@@ -122,39 +125,3 @@ int main(void)
     printf("foo\n");
     return 0;
 }
-
-
-////////////
-
-//optionalFloat getSuccessful1(void);
-//optionalFloat getFailure(void);
-//
-//DefineOptional(float)
-//
-//int main(void)
-//{
-//    Optional(float) myOptFloat;
-//    float           myFloat;
-//
-//    myOptFloat = getFailure();
-//    if(IsSome(myOptFloat))
-//    {
-//        // Should never happen
-//    }
-//
-//    myOptFloat = getSuccessful1();
-//    if(IsSome(myOptFloat))
-//    {
-//        // Should Happen
-//        // Use like myOptFloat.contents
-//    }
-//
-//    myOptFloat = getSuccessful2();
-//    if(Unwrap(myOptFloat, myFloat))
-//    {
-//        // you can now use myFloat
-//        // Use like myFloat
-//    }
-//}
-//
-

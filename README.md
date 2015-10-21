@@ -59,6 +59,6 @@ Included but not limited to:
 
 * You cant create pointer Optionals, like `Optional(type*)`. This means you cannot have non-nullable pointers
 * You cannot `DefineOptional(type)` twice. It will cause lots of compiler issues. Instead, create a single `OptionalTypes.h`.
-* Creating an `Optional(type)` doesn't initialize it. This means it will probably be seen as a `Some(type)` if you don't zero it first. Workarounds:
-    * `Optional(type) foo = None(foo);`
+* Creating an `Optional(type)` instance doesn't initialize it. This means it will probably be seen as a `Some(type)` if you don't zero it first. Workarounds:
+    * `Optional(type) foo = None(type);`
     * `Optional(type) foo = {{0}};`

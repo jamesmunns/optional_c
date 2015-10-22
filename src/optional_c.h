@@ -29,12 +29,24 @@ typedef struct
     optional_error_code     code;
 } optional_header;
 
-// These are constructors
-#define Some(_optional_type, _optional_parameter)   _Some##_optional_type(_optional_parameter)
-#define None(_optional_type)                        _None##_optional_type()
-
 // This is a type
 #define Optional(_optional_type) optional_##_optional_type##_type
+
+// These are constructors
+#define Some(_optional_type, _optional_parameter)   \
+    ((Optional(_optional_type))                     \
+        {   .header.valid = true,                   \
+            .header.code  = SUCCESS,                \
+            .contents     = _optional_parameter     \
+        } )
+// End Some()
+
+#define None(_optional_type)                \
+    ((Optional(_optional_type))             \
+        {   .header.valid = false,          \
+            .header.code  = UNKNOWN_ERROR   \
+        } )
+// End None()
 
 // This is the big ugly engine
 #define DefineOptional(_optional_type)  \
@@ -42,22 +54,7 @@ typedef struct
     {                                   \
         optional_header header;         \
         _optional_type  contents;       \
-    }Optional(_optional_type);          \
-    Optional(_optional_type) _None##_optional_type(void)    \
-    {                                                       \
-        Optional(_optional_type) internal_temp;             \
-        internal_temp.header.valid = false;                 \
-        internal_temp.header.code  = UNKNOWN_ERROR;         \
-        return internal_temp;                               \
-    }                                                       \
-    Optional(_optional_type) _Some##_optional_type(_optional_type _parameter)    \
-    {                                                                            \
-        Optional(_optional_type) internal_temp;                                  \
-        internal_temp.header.valid = true;                                       \
-        internal_temp.header.code  = SUCCESS;                                    \
-        internal_temp.contents     = _parameter;                                 \
-        return internal_temp;                                                    \
-    }
+    }Optional(_optional_type)
 // End DefineOptional
 
 //// Back to magic prototypes

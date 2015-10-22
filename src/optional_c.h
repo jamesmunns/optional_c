@@ -5,6 +5,8 @@
  *
  * Dont use this in production code. Seriously.
  *
+ * MIT License, See LICENSE for more details
+ *
  * 2015 - James Munns
  *****************************************************************************/
 
@@ -57,9 +59,12 @@ typedef struct
     }Optional(_optional_type)
 // End DefineOptional
 
+// This creates an optional type with a defined name.
+// Useful with structs, enums, unions, and pointers that havent already been typedef'd
 #define DefineNamedOptional(_optional_type, _optional_name) \
     typedef _optional_type _optional_name;                  \
     DefineOptional(_optional_name)
+// End DefineNamedOptional
 
 //// Back to magic prototypes
 

@@ -48,7 +48,7 @@ typedef struct
         } )
 // End None()
 
-// This is the big ugly engine
+// This creates an optional type named the same as the type
 #define DefineOptional(_optional_type)  \
     typedef struct                      \
     {                                   \
@@ -56,6 +56,10 @@ typedef struct
         _optional_type  contents;       \
     }Optional(_optional_type)
 // End DefineOptional
+
+#define DefineNamedOptional(_optional_type, _optional_name) \
+    typedef _optional_type _optional_name;                  \
+    DefineOptional(_optional_name)
 
 //// Back to magic prototypes
 
@@ -72,5 +76,9 @@ typedef struct
       : (false)                                                 \
     )
 // End Unwrap
+
+// IfUnwrap(){}
+#define IfUnwrap(_optional_object, _destination_object)         \
+    if Unwrap(_optional_object, _destination_object )
 
 #endif // _OPTIONAL_C_H
